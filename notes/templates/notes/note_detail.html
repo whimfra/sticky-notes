@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Note{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1 style="margin-top: 0;">{{ note.title }}</h1>
+    <p style="white-space: pre-wrap;">{{ note.content }}</p>
+
+    <div class="row">
+      <a class="btn" href="{% url 'notes:note_update' note.pk %}">Edit</a>
+      <a class="btn danger" href="{% url 'notes:note_delete' note.pk %}">Delete</a>
+      <a class="btn" href="{% url 'notes:note_list' %}">Back</a>
+    </div>
+  </div>
+{% endblock %}
