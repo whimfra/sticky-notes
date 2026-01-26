@@ -1,0 +1,19 @@
+sequenceDiagram
+    actor User
+    participant UI as Browser (Templates)
+    participant View as Django View
+    participant DB as Database
+
+    User->>UI: Open notes list
+    UI->>View: GET /
+    View->>DB: SELECT Notes ORDER BY id DESC
+    DB-->>View: Notes
+    View-->>UI: Render note_list.html
+    UI-->>User: Notes displayed
+
+    User->>UI: Click a note
+    UI->>View: GET /note/<id>/
+    View->>DB: SELECT Note WHERE id=<id>
+    DB-->>View: Note
+    View-->>UI: Render note_detail.html
+    UI-->>User: Note details displayed

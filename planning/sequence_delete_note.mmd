@@ -1,0 +1,18 @@
+sequenceDiagram
+    actor User
+    participant UI as Browser (Templates)
+    participant View as Django View
+    participant DB as Database
+
+    User->>UI: Open Delete confirmation
+    UI->>View: GET /note/<id>/delete/
+    View->>DB: SELECT Note WHERE id=<id>
+    DB-->>View: Note
+    View-->>UI: Render note_confirm_delete.html
+
+    User->>UI: Confirm delete
+    UI->>View: POST /note/<id>/delete/
+    View->>DB: DELETE Note WHERE id=<id>
+    DB-->>View: Deleted
+    View-->>UI: Redirect to /
+    UI-->>User: Note removed from list

@@ -1,0 +1,17 @@
+sequenceDiagram
+    actor User
+    participant UI as Browser (Templates)
+    participant View as Django View
+    participant DB as Database
+
+    User->>UI: Open Create Note page
+    UI->>View: GET /note/new/
+    View-->>UI: Render note_form.html
+
+    User->>UI: Submit note form
+    UI->>View: POST /note/new/ (title, content)
+    View->>View: Validate NoteForm
+    View->>DB: INSERT Note
+    DB-->>View: Note saved
+    View-->>UI: Redirect to /
+    UI-->>User: Notes list updated

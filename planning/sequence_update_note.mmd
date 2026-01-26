@@ -1,0 +1,19 @@
+sequenceDiagram
+    actor User
+    participant UI as Browser (Templates)
+    participant View as Django View
+    participant DB as Database
+
+    User->>UI: Open Edit Note page
+    UI->>View: GET /note/<id>/edit/
+    View->>DB: SELECT Note WHERE id=<id>
+    DB-->>View: Note
+    View-->>UI: Render note_form.html
+
+    User->>UI: Submit updated note
+    UI->>View: POST /note/<id>/edit/ (title, content)
+    View->>View: Validate NoteForm
+    View->>DB: UPDATE Note SET title, content WHERE id=<id>
+    DB-->>View: Updated
+    View-->>UI: Redirect to /
+    UI-->>User: Notes list updated
